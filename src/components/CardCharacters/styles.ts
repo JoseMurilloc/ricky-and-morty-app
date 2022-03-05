@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 export const Container = styled.View`
   width: 100%;
@@ -24,7 +23,7 @@ export const CharacterPhoto = styled.Image`
 export const ContentCharacter = styled.View`
   position: relative;
   flex: 1;
-  padding: 10px;
+  padding: 10px 0 10px 10px;
 `;
 
 export const NameCharacter = styled.Text`
@@ -57,7 +56,7 @@ export const Origin = styled.Text`
   color: ${props => props.theme.colors.text.information};
 `;
 
-export const Heart = styled(Icon)`
+export const ButtonFavorite = styled.TouchableOpacity`
   position: absolute;
   bottom: 10px;
   right: 10px;

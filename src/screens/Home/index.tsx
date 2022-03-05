@@ -3,6 +3,8 @@ import {FlatList, StatusBar} from 'react-native';
 import {CardCharacters} from '../../components/CardCharacters';
 
 import {InputSearch} from '../../components/InputSearch';
+import {Spinner} from '../../components/Spinner';
+import {useCharacters} from '../../hooks/useCharacters';
 import {
   AccountPersonally,
   Container,
@@ -14,6 +16,19 @@ import {
 } from './styles';
 
 export function Home() {
+  const {data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage} =
+    useCharacters('characters');
+
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const characters = data?.pages.map(page => page.results).flat();
+  const countCurrentCharacters =
+    data?.pages?.length * data?.pages[0].amountCharacters;
+
   return (
     <>
       <StatusBar
@@ -25,7 +40,7 @@ export function Home() {
         <Header>
           <WrapperContent>
             <Title>Listagem</Title>
-            <AccountPersonally>{'62 personagens'}</AccountPersonally>
+            <AccountPersonally>{`${countCurrentCharacters} personagens`}</AccountPersonally>
           </WrapperContent>
 
           <WrapperInputSearch>
@@ -34,11 +49,17 @@ export function Home() {
         </Header>
 
         <Main>
+          {isLoading && <Spinner />}
+
           <FlatList
-            data={[0, 1, 2, 4, 5]}
+            data={characters}
             showsVerticalScrollIndicator={false}
-            keyExtractor={item => String(item)}
-            renderItem={_ => <CardCharacters />}
+            keyExtractor={character => String(character.id)}
+            renderItem={({item: character}) => (
+              <CardCharacters character={character} />
+            )}
+            onEndReached={loadMore}
+            ListFooterComponent={isFetchingNextPage ? <Spinner /> : null}
           />
         </Main>
       </Container>

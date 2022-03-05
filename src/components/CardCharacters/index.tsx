@@ -8,30 +8,47 @@ import {
   Title,
   Specie,
   Origin,
-  Heart,
+  ButtonFavorite,
 } from './styles';
+import Icon from 'react-native-vector-icons/AntDesign';
 import theme from '../../global/styles/theme';
 
-export function CardCharacters() {
+type Character = {
+  id: number;
+  name: string;
+  image: string;
+  species: string;
+  origin: {
+    name: string;
+  };
+};
+
+type Props = {
+  character: Character;
+};
+
+export function CardCharacters({character}: Props) {
   return (
     <Container>
       <ImageCharacter>
         <CharacterPhoto
           source={{
-            uri: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+            uri: character.image,
           }}
         />
       </ImageCharacter>
       <ContentCharacter>
-        <NameCharacter>Rick Sanchez</NameCharacter>
+        <NameCharacter>{character.name}</NameCharacter>
 
         <Title>Species:</Title>
-        <Specie>Human</Specie>
+        <Specie>{character.species}</Specie>
 
         <Title>Origin:</Title>
-        <Origin>Earth (C-137)</Origin>
+        <Origin>{character.origin.name}</Origin>
 
-        <Heart name="hearto" size={16} color={theme.colors.primary} />
+        <ButtonFavorite>
+          <Icon name="hearto" size={16} color={theme.colors.primary} />
+        </ButtonFavorite>
       </ContentCharacter>
     </Container>
   );
