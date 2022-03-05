@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, StatusBar} from 'react-native';
 import {CardCharacters} from '../../components/CardCharacters';
 
@@ -16,14 +16,26 @@ import {
 } from './styles';
 
 export function Home() {
-  const {data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage} =
-    useCharacters('characters');
+  const [search, setSearch] = useState('');
+
+  const {
+    data,
+    refetch,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useCharacters({key: 'characters', search});
 
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage();
     }
   };
+
+  function handleSubmitFilter() {
+    refetch();
+  }
 
   const characters = data?.pages.map(page => page.results).flat();
   const countCurrentCharacters =
@@ -44,7 +56,13 @@ export function Home() {
           </WrapperContent>
 
           <WrapperInputSearch>
-            <InputSearch placeholder="Busque por um personagem" />
+            <InputSearch
+              placeholder="Busque por um personagem"
+              value={search}
+              onChangeText={setSearch}
+              autoCorrect={false}
+              onSubmitEditing={handleSubmitFilter}
+            />
           </WrapperInputSearch>
         </Header>
 
