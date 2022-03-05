@@ -21,7 +21,7 @@ export const CharacterPhoto = styled.Image`
   height: 100%;
 `;
 
-export const CircleIconBack = styled.View`
+export const CircleIconBack = styled.TouchableHighlight`
   position: absolute;
   top: 40px;
   left: 20px;

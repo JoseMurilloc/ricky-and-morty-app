@@ -1,6 +1,9 @@
-import React from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import theme from '../../global/styles/theme';
+import {Navigation} from '../../routes/typesRoutes';
+import {api} from '../../services/axios';
 import {
   Container,
   Header,
@@ -22,7 +25,48 @@ import {
   ButtonSearchGoogleText,
 } from './styles';
 
+type Character = {
+  id: number;
+  name: string;
+  status: string;
+  statusFormatted: 'alive' | 'dead' | 'unknown';
+  image: string;
+  species: string;
+  gender: string;
+  origin: {
+    name: string;
+  };
+  location: {
+    name: string;
+  };
+};
+
+type Params = {id: number};
+
 export function CharacterDetails() {
+  const route = useRoute();
+  const navigation = useNavigation<Navigation>();
+
+  const [character, setCharacter] = useState<Character>();
+
+  useEffect(() => {
+    fetchCharacter();
+  }, []);
+
+  async function fetchCharacter() {
+    const {id} = route.params as Params;
+
+    try {
+      const response = await api.get(`/character/${id}`);
+      setCharacter({
+        ...response.data,
+        statusFormatted: response.data.status.toLowerCase(),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <StatusBar
@@ -35,11 +79,11 @@ export function CharacterDetails() {
           <ImageCharacter>
             <CharacterPhoto
               source={{
-                uri: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+                uri: character?.image,
               }}
             />
 
-            <CircleIconBack>
+            <CircleIconBack onPress={() => navigation.goBack()}>
               <ArrowBack name="arrowleft" size={21} color="#ffffff" />
             </CircleIconBack>
           </ImageCharacter>
@@ -47,19 +91,19 @@ export function CharacterDetails() {
 
         <ContentInfo>
           <HeaderSection>
-            <NameCharacter>Rick Sanchez</NameCharacter>
-            <Heart name="heart" size={24} color={theme.colors.primary} />
+            <NameCharacter>{character?.name}</NameCharacter>
+            <Heart name="hearto" size={24} color={theme.colors.primary} />
           </HeaderSection>
 
           <AboutSection>
             <WrapperInfo>
               <Title>Species:</Title>
-              <Info>Human</Info>
+              <Info>{character?.species}</Info>
             </WrapperInfo>
 
             <WrapperInfo>
               <Title>Gender:</Title>
-              <Info>Human</Info>
+              <Info>{character?.gender}</Info>
             </WrapperInfo>
           </AboutSection>
 
@@ -71,12 +115,14 @@ export function CharacterDetails() {
           <AboutSection>
             <WrapperInfo>
               <Title>Origin:</Title>
-              <Info>Earth (C-137)</Info>
+              <Info>{character?.origin.name}</Info>
             </WrapperInfo>
 
             <WrapperInfo>
               <Title>Status:</Title>
-              <Status status="alive">Alive</Status>
+              <Status status={character?.statusFormatted}>
+                {character?.status}
+              </Status>
             </WrapperInfo>
           </AboutSection>
         </ContentInfo>
