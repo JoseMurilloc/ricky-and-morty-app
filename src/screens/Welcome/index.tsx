@@ -12,8 +12,12 @@ import {
 
 import welcomeImage from '../../assets/WelcomeBG.png';
 import logoImage from '../../assets/logo.png';
+import {useNavigation} from '@react-navigation/native';
+import {Navigation} from '../../routes/typesRoutes';
 
 export function Welcome() {
+  const navigation = useNavigation<Navigation>();
+
   return (
     <>
       <StatusBar
@@ -25,7 +29,7 @@ export function Welcome() {
         <Background source={welcomeImage}>
           <Content>
             <Image source={logoImage} />
-            <ButtonContinue>
+            <ButtonContinue onPress={() => navigation.navigate('Home')}>
               <ButtonContinueText>Prosseguir</ButtonContinueText>
               <Icon name="arrowright" size={21} color="#ffffff" />
             </ButtonContinue>
