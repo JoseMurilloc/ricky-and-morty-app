@@ -15,6 +15,7 @@ import theme from '../../global/styles/theme';
 import {TouchableWithoutFeedback} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Navigation} from '../../routes/typesRoutes';
+import {useFavorites} from '../../contexts/favorites';
 
 type Character = {
   id: number;
@@ -32,6 +33,7 @@ type Props = {
 
 export function CardCharacters({character}: Props) {
   const navigation = useNavigation<Navigation>();
+  const {favorites, toggleFavorites} = useFavorites();
 
   return (
     <TouchableWithoutFeedback
@@ -55,8 +57,12 @@ export function CardCharacters({character}: Props) {
           <Title>Origin:</Title>
           <Origin>{character.origin.name}</Origin>
 
-          <ButtonFavorite>
-            <Icon name="hearto" size={16} color={theme.colors.primary} />
+          <ButtonFavorite onPress={() => toggleFavorites(character.id)}>
+            <Icon
+              name={favorites.includes(character.id) ? 'heart' : 'hearto'}
+              size={24}
+              color={theme.colors.primary}
+            />
           </ButtonFavorite>
         </ContentCharacter>
       </Container>

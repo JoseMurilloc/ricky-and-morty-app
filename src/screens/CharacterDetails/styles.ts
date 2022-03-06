@@ -37,11 +37,7 @@ export const CircleIconBack = styled.TouchableHighlight`
 
 export const ArrowBack = styled(Icon)``;
 
-export const Heart = styled(Icon)`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-`;
+export const Heart = styled(Icon)``;
 
 export const ContentInfo = styled.View`
   padding: 31px 20px 39px 20px;

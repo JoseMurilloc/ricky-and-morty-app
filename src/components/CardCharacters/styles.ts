@@ -60,4 +60,5 @@ export const ButtonFavorite = styled.TouchableOpacity`
   position: absolute;
   bottom: 10px;
   right: 10px;
+  z-index: 200;
 `;

@@ -7,6 +7,8 @@ import {AppRoutes} from './routes';
 import theme from './global/styles/theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
+import {FavoritesProvider} from './contexts/favorites';
+
 const App = () => {
   const queryClient = new QueryClient();
 
@@ -14,7 +16,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <QueryClientProvider client={queryClient}>
-          <AppRoutes />
+          <FavoritesProvider>
+            <AppRoutes />
+          </FavoritesProvider>
         </QueryClientProvider>
       </NavigationContainer>
     </ThemeProvider>
