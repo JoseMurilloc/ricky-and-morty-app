@@ -15,11 +15,6 @@ export function useCharacters({key, search}: useCharactersParams) {
     pageParam = `/character?page=1&name=${search}`,
   }) {
     const res = await api.get(pageParam);
-
-    const amountCharacters = Math.ceil(
-      res.data.info.count / res.data.info.pages,
-    );
-
-    return {...res.data, amountCharacters};
+    return res.data;
   }
 }

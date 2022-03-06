@@ -38,8 +38,11 @@ export function Home() {
   }
 
   const characters = data?.pages.map(page => page.results).flat();
-  const countCurrentCharacters =
-    data?.pages?.length * data?.pages[0].amountCharacters;
+
+  const countCurrentCharacters = data?.pages.reduce(
+    (acc, page) => (acc += page.results.length),
+    0,
+  );
 
   return (
     <>
