@@ -67,6 +67,6 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 <div align="center">
   <small>Desenvolvido por José Murillo - Março/2022</small>
 
-  [![Instagram Badge](https://img.shields.io/badge/_mur1l00_-6633cc?style=flat-square&labelColor=6633cc&logo=instagram&logoColor=white&link=https://[https://www.instagram.com/_mur1l00_/](https://www.instagram.com/_mur1l00_/))](https://www.instagram.com/rodrigo.goncalves.s/) 
-  [![Linkedin Badge](https://img.shields.io/badge/-José%20Murillo-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jose-murillodev/)](https://www.linkedin.com/in/rodrigo-gon%C3%A7alves-santana/) 
+  [![Instagram Badge](https://img.shields.io/badge/_mur1l00_-6633cc?style=flat-square&labelColor=6633cc&logo=instagram&logoColor=white&link=https://[https://www.instagram.com/_mur1l00_/](https://www.instagram.com/_mur1l00_/))](https://www.instagram.com/_mur1l00_/) 
+  [![Linkedin Badge](https://img.shields.io/badge/-José%20Murillo-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jose-murillodev/)](https://www.linkedin.com/in/jose-murillodev/) 
 </div>
