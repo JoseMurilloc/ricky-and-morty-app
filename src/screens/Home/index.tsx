@@ -25,7 +25,6 @@ export function Home() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-    isFetching,
   } = useCharacters({key: 'characters', search});
 
   const loadMore = () => {
@@ -73,7 +72,7 @@ export function Home() {
         </Header>
 
         <Main>
-          {isLoading || isFetching ? (
+          {isLoading ? (
             <Spinner />
           ) : (
             <FlatList
