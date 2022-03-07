@@ -55,7 +55,9 @@ export function Home() {
         <Header>
           <WrapperContent>
             <Title>Listagem</Title>
-            <AccountPersonally>{`${countCurrentCharacters} personagens`}</AccountPersonally>
+            <AccountPersonally>{`${
+              countCurrentCharacters ? countCurrentCharacters : 0
+            } personagens`}</AccountPersonally>
           </WrapperContent>
 
           <WrapperInputSearch>
