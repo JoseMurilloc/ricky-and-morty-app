@@ -25,6 +25,7 @@ export function Home() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    isFetching,
   } = useCharacters({key: 'characters', search});
 
   const loadMore = () => {
@@ -72,18 +73,20 @@ export function Home() {
         </Header>
 
         <Main>
-          {isLoading && <Spinner />}
-
-          <FlatList
-            data={characters}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={character => String(character.id)}
-            renderItem={({item: character}) => (
-              <CardCharacters character={character} />
-            )}
-            onEndReached={loadMore}
-            ListFooterComponent={isFetchingNextPage ? <Spinner /> : null}
-          />
+          {isLoading || isFetching ? (
+            <Spinner />
+          ) : (
+            <FlatList
+              data={characters}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={character => String(character.id)}
+              renderItem={({item: character}) => (
+                <CardCharacters character={character} />
+              )}
+              onEndReached={loadMore}
+              ListFooterComponent={isFetchingNextPage ? <Spinner /> : null}
+            />
+          )}
         </Main>
       </Container>
     </>

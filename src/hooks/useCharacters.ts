@@ -9,6 +9,9 @@ type useCharactersParams = {
 export function useCharacters({key, search}: useCharactersParams) {
   return useInfiniteQuery(key, fetchingCharacter, {
     getNextPageParam: lastPage => lastPage.info.next ?? false,
+    onError: error => {
+      console.log(error);
+    },
   });
 
   async function fetchingCharacter({
