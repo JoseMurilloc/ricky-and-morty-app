@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {StatusBar, TouchableOpacity} from 'react-native';
+import {StatusBar, TouchableOpacity, Linking} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Spinner} from '../../components/Spinner';
 // import {useFavorites} from '../../contexts/favorites';
@@ -151,7 +151,12 @@ export function CharacterDetails() {
               </AboutSection>
             </ContentInfo>
 
-            <ButtonSearchGoogle>
+            <ButtonSearchGoogle
+              onPress={() =>
+                Linking.openURL(
+                  `https://www.google.com.br/search?q=${character?.name}`,
+                )
+              }>
               <ButtonSearchGoogleText>Buscar no Google</ButtonSearchGoogleText>
             </ButtonSearchGoogle>
           </>
