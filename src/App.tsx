@@ -6,7 +6,8 @@ import {AppRoutes} from './routes';
 
 import theme from './global/styles/theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
-
+import {Provider} from 'react-redux';
+import store from './store';
 import {FavoritesProvider} from './contexts/favorites';
 
 const App = () => {
@@ -15,11 +16,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <QueryClientProvider client={queryClient}>
-          <FavoritesProvider>
-            <AppRoutes />
-          </FavoritesProvider>
-        </QueryClientProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <FavoritesProvider>
+              <AppRoutes />
+            </FavoritesProvider>
+          </QueryClientProvider>
+        </Provider>
       </NavigationContainer>
     </ThemeProvider>
   );

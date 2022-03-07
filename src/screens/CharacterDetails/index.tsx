@@ -1,11 +1,14 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Spinner} from '../../components/Spinner';
-import {useFavorites} from '../../contexts/favorites';
+// import {useFavorites} from '../../contexts/favorites';
 import theme from '../../global/styles/theme';
 import {Navigation} from '../../routes/typesRoutes';
 import {api} from '../../services/axios';
+import {addFavoriteCharacters} from '../../store/modules/favorites/actions';
+import {State} from '../../store/rootReducer';
 import {
   Container,
   Header,
@@ -49,7 +52,10 @@ export function CharacterDetails() {
   const route = useRoute();
   const navigation = useNavigation<Navigation>();
   const [character, setCharacter] = useState<Character>();
-  const {favorites, toggleFavorites} = useFavorites();
+  // const {favorites, toggleFavorites} = useFavorites();
+
+  const favorite = useSelector((state: State) => state.favorites);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchCharacter();
@@ -99,9 +105,14 @@ export function CharacterDetails() {
             <ContentInfo>
               <HeaderSection>
                 <NameCharacter>{character?.name}</NameCharacter>
-                <TouchableOpacity onPress={() => toggleFavorites(character.id)}>
+                <TouchableOpacity
+                  onPress={() => dispatch(addFavoriteCharacters(character.id))}>
                   <Heart
-                    name={favorites.includes(character.id) ? 'heart' : 'hearto'}
+                    name={
+                      favorite.characters.includes(character.id)
+                        ? 'heart'
+                        : 'hearto'
+                    }
                     size={24}
                     color={theme.colors.primary}
                   />
