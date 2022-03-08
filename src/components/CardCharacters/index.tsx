@@ -56,7 +56,7 @@ export function CardCharacters({character}: Props) {
         </ImageCharacter>
         <ContentCharacter>
           <NameCharacter>
-            {character.name.length > 24
+            {character.name.length > 22
               ? character.name.slice(0, 17).concat('...')
               : character.name}
           </NameCharacter>
