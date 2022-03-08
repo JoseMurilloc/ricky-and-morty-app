@@ -1,6 +1,6 @@
 import {useInfiniteQuery} from 'react-query';
 import {api} from '../services/axios';
-import {Alert} from 'react-native';
+import {useToast} from '../contexts/toast';
 
 type useCharactersParams = {
   key: string;
@@ -8,10 +8,15 @@ type useCharactersParams = {
 };
 
 export function useCharacters({key, search}: useCharactersParams) {
+  const {showToast} = useToast();
+
   return useInfiniteQuery(key, fetchingCharacter, {
     getNextPageParam: lastPage => lastPage.info.next ?? false,
     onError: _ => {
-      Alert.alert('Não existe personagens com o nome inserido');
+      showToast({
+        messageToast: 'Não existe personagens com o nome inserido',
+        statusToast: 'error',
+      });
     },
   });
 

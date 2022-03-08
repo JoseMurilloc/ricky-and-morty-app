@@ -17,6 +17,7 @@ import {
 
 export function Home() {
   const [search, setSearch] = useState('');
+  const [loadSearch, setLoadSearch] = useState(false);
 
   const {
     data,
@@ -25,6 +26,7 @@ export function Home() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    isRefetching,
   } = useCharacters({key: 'characters', search});
 
   const loadMore = () => {
@@ -33,8 +35,10 @@ export function Home() {
     }
   };
 
-  function handleSubmitFilter() {
-    refetch();
+  async function handleSubmitFilter() {
+    setLoadSearch(true);
+    await refetch();
+    setLoadSearch(false);
   }
 
   const characters = data?.pages.map(page => page.results).flat();
@@ -43,6 +47,18 @@ export function Home() {
     (acc, page) => (acc += page.results.length),
     0,
   );
+
+  const handleCountCharacters = () => {
+    if (!countCurrentCharacters) {
+      return '0 personagem';
+    }
+
+    if (countCurrentCharacters > 1) {
+      return ` ${countCurrentCharacters} personagens`;
+    }
+
+    return `${countCurrentCharacters} personagem`;
+  };
 
   return (
     <>
@@ -55,9 +71,7 @@ export function Home() {
         <Header>
           <WrapperContent>
             <Title>Listagem</Title>
-            <AccountPersonally>{`${
-              countCurrentCharacters ? countCurrentCharacters : 0
-            } personagens`}</AccountPersonally>
+            <AccountPersonally>{handleCountCharacters()}</AccountPersonally>
           </WrapperContent>
 
           <WrapperInputSearch>
@@ -72,7 +86,7 @@ export function Home() {
         </Header>
 
         <Main>
-          {isLoading ? (
+          {isLoading || (isRefetching && loadSearch) ? (
             <Spinner />
           ) : (
             <FlatList

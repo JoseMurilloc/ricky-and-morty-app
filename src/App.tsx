@@ -9,6 +9,8 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import store from './store';
 import {FavoritesProvider} from './contexts/favorites';
+import {Toast} from './components/Toast';
+import {ToastProvider} from './contexts/toast';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -19,7 +21,10 @@ const App = () => {
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
-              <AppRoutes />
+              <ToastProvider>
+                <Toast />
+                <AppRoutes />
+              </ToastProvider>
             </FavoritesProvider>
           </QueryClientProvider>
         </Provider>

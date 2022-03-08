@@ -18,6 +18,8 @@ export const Container = styled.View`
 export const Input = styled(TextInput)`
   height: 100%;
   flex: 1;
+  justify-content: center;
+  align-items: center;
   margin-left: 20px;
   font-size: 16px;
   font-family: ${props => props.theme.fonts.regular};
