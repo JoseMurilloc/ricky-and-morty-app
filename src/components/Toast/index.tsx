@@ -44,7 +44,7 @@ export function Toast() {
     <Container
       status={status}
       style={[{...ZIndex(100)}, {transform: [{translateY: animatedToast}]}]}>
-      <Message>{message}</Message>
+      <Message status={status}>{message}</Message>
     </Container>
   );
 }

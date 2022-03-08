@@ -2,7 +2,7 @@ export type ToastProps = {
   message: string;
 };
 
-export type Status = 'success' | 'warn' | 'error' | 'default';
+export type Status = 'success' | 'error' | 'default';
 
 export interface ToastContextData {
   status: Status;
