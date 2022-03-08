@@ -154,7 +154,7 @@ export function CharacterDetails() {
             <ButtonSearchGoogle
               onPress={() =>
                 Linking.openURL(
-                  `https://www.google.com.br/search?q=${character?.name}`,
+                  `https://www.google.com.br/search?q=Rick and Morty ${character?.name}`,
                 )
               }>
               <ButtonSearchGoogleText>Buscar no Google</ButtonSearchGoogleText>
