@@ -22,6 +22,7 @@ Aplicativo que contempla uma gama de informações sobre todos os personagens da
 -   [ ] Pesquisar pelo nome do personagem
 -   [ ] Favoritar qualquer personagem
 -   [ ] Contagem de quantos personagens tem na listagem
+-   [ ] Toast 
 
 
 ## ✨ Tecnologias
@@ -34,6 +35,7 @@ Aplicativo que contempla uma gama de informações sobre todos os personagens da
 -   [ ] React Navigation Stack
 -   [ ] React Native Gesture Handler
 -   [ ] React Query
+-   [ ] Redux
 
 
 ## 🔖 Layout
