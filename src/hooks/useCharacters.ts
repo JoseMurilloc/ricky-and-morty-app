@@ -23,8 +23,18 @@ export function useCharacters({key, search}: useCharactersParams) {
   async function fetchingCharacter({
     pageParam = `/character?page=1&name=${search}`,
   }) {
-    const res = await api.get(pageParam);
+    const returnNullResults = {info: {}, results: []};
 
-    return res.data;
+    try {
+      if (!pageParam) {
+        return returnNullResults;
+      }
+
+      const res = await api.get(pageParam);
+
+      return res.data;
+    } catch (error: any) {
+      return Promise.reject(error);
+    }
   }
 }
