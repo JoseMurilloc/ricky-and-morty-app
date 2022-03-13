@@ -41,6 +41,8 @@ export function CardCharacters({character}: Props) {
   const favorites = useSelector((state: State) => state.favorites);
   const dispatch = useDispatch();
 
+  const formattedSizeName = (name: string) => name.slice(0, 17).concat('...');
+
   return (
     <TouchableWithoutFeedback
       onPress={() =>
@@ -55,9 +57,9 @@ export function CardCharacters({character}: Props) {
           />
         </ImageCharacter>
         <ContentCharacter>
-          <NameCharacter>
+          <NameCharacter testID="name-character">
             {character.name.length > 22
-              ? character.name.slice(0, 17).concat('...')
+              ? formattedSizeName(character.name)
               : character.name}
           </NameCharacter>
 
@@ -67,13 +69,15 @@ export function CardCharacters({character}: Props) {
           <Title>Origin:</Title>
           <Origin>
             {character.origin.name.length > 24
-              ? character.origin.name.slice(0, 17).concat('...')
+              ? formattedSizeName(character.origin.name)
               : character.origin.name}
           </Origin>
 
           <ButtonFavorite
+            testID="favorite-button"
             onPress={() => dispatch(addFavoriteCharacters(character.id))}>
             <Icon
+              testID="favorite-button-icon"
               name={
                 favorites.characters.includes(character.id) ? 'heart' : 'hearto'
               }
