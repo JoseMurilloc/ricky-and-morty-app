@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
@@ -8,7 +9,7 @@ export const Container = styled.View`
 export const Header = styled.View`
   position: relative;
   width: 100%;
-  height: 437px;
+  height: ${RFValue(437, 900)}px;
 `;
 
 export const ImageCharacter = styled.View`

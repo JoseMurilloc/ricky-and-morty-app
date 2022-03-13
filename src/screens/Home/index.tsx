@@ -71,7 +71,9 @@ export function Home() {
         <Header>
           <WrapperContent>
             <Title>Listagem</Title>
-            <AccountPersonally>{handleCountCharacters()}</AccountPersonally>
+            <AccountPersonally testID="count-listing">
+              {handleCountCharacters()}
+            </AccountPersonally>
           </WrapperContent>
 
           <WrapperInputSearch>
