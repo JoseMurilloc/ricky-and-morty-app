@@ -2,7 +2,7 @@ import React from 'react';
 
 import {render} from '@testing-library/react-native';
 import {CardCharacters} from '../../components/CardCharacters';
-import {Providers} from '../../screens/__test__/home.spec';
+import {Providers} from '../../utils/tests/helper';
 
 const character = {
   id: 1,
