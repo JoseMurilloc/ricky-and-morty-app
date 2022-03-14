@@ -4,7 +4,7 @@ export interface FavoritesProviderProps {
   children: ReactNode;
 }
 
-export interface MealContextData {
+export interface FavoritesContextData {
   favorites: number[];
   toggleFavorites: (id: number) => void;
 }

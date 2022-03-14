@@ -1,8 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {createContext} from 'react';
-import {MealContextData, FavoritesProviderProps} from './types';
+import {FavoritesContextData, FavoritesProviderProps} from './types';
 
-const FavoritesContext = createContext<MealContextData>({} as MealContextData);
+const FavoritesContext = createContext<FavoritesContextData>(
+  {} as FavoritesContextData,
+);
 
 export function FavoritesProvider({children}: FavoritesProviderProps) {
   const [favorites, setFavorites] = useState<number[]>(() => []);
@@ -27,7 +29,7 @@ export function FavoritesProvider({children}: FavoritesProviderProps) {
   );
 }
 
-export function useFavorites(): MealContextData {
+export function useFavorites(): FavoritesContextData {
   const context = useContext(FavoritesContext);
 
   return context;
