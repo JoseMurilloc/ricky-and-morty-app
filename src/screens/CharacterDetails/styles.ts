@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {StatusProps} from './types';
 
 export const Container = styled.View`
   flex: 1;
@@ -77,10 +78,6 @@ export const Info = styled.Text`
 
   color: ${props => props.theme.colors.text.dark};
 `;
-
-type StatusProps = {
-  status: 'alive' | 'dead' | 'unknown';
-};
 
 export const Status = styled.Text<StatusProps>`
   font-family: ${props => props.theme.fonts.semiBold};

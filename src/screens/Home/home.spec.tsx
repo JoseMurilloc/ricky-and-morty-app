@@ -3,14 +3,16 @@ import {render} from '@testing-library/react-native';
 
 import {Home} from '../../screens/Home';
 import {Providers} from '../../utils/tests/helper';
-// import {dataMock} from './mock';
+import {server} from './mock';
 
-jest.mock('../../hooks/useCharacters', () => ({
-  ...jest.requireActual('../../hooks/useCharacters'),
-  // data: jest.fn(() => dataMock),
-}));
+// jest.mock('../../hooks/useCharacters', () => ({
+//   ...jest.requireActual('../../hooks/useCharacters'),
+// }));
 
 describe('<Home />', () => {
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
   it('should have show correctly counter characters', () => {
     const {getByTestId} = render(<Home />, {wrapper: Providers});
     const textCounterListing = getByTestId('count-listing').children[0];

@@ -2,13 +2,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import {StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {
-  Container,
-  Content,
-  Background,
-  ButtonContinue,
-  ButtonContinueText,
-} from './styles';
+import * as S from './styles';
 
 import welcomeImage from '../../assets/WelcomeBG.png';
 import logoImage from '../../assets/logo.png';
@@ -25,17 +19,17 @@ export function Welcome() {
         translucent
         backgroundColor="transparent"
       />
-      <Container>
-        <Background source={welcomeImage}>
-          <Content>
+      <S.Container>
+        <S.Background source={welcomeImage}>
+          <S.Content>
             <Image source={logoImage} />
-            <ButtonContinue onPress={() => navigation.navigate('Home')}>
-              <ButtonContinueText>Prosseguir</ButtonContinueText>
+            <S.ButtonContinue onPress={() => navigation.navigate('Home')}>
+              <S.ButtonContinueText>Prosseguir</S.ButtonContinueText>
               <Icon name="arrowright" size={21} color="#ffffff" />
-            </ButtonContinue>
-          </Content>
-        </Background>
-      </Container>
+            </S.ButtonContinue>
+          </S.Content>
+        </S.Background>
+      </S.Container>
     </>
   );
 }

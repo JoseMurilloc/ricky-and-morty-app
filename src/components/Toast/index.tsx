@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Animated, Easing, Platform} from 'react-native';
 import {useToast} from '../../contexts/toast';
-import {Container, Message} from './styles';
+import * as S from './styles';
 
 export function Toast() {
   const {message, isShow, status, duration, hideToast} = useToast();
@@ -41,10 +41,10 @@ export function Toast() {
   }
 
   return (
-    <Container
+    <S.Container
       status={status}
       style={[{...ZIndex(100)}, {transform: [{translateY: animatedToast}]}]}>
-      <Message status={status}>{message}</Message>
-    </Container>
+      <S.Message status={status}>{message}</S.Message>
+    </S.Container>
   );
 }

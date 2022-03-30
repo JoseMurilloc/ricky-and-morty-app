@@ -5,15 +5,7 @@ import {CardCharacters} from '../../components/CardCharacters';
 import {InputSearch} from '../../components/InputSearch';
 import {Spinner} from '../../components/Spinner';
 import {useCharacters} from '../../hooks/useCharacters';
-import {
-  AccountPersonally,
-  Container,
-  Header,
-  WrapperContent,
-  Title,
-  WrapperInputSearch,
-  Main,
-} from './styles';
+import * as S from './styles';
 
 export function Home() {
   const [search, setSearch] = useState('');
@@ -67,16 +59,16 @@ export function Home() {
         translucent
         backgroundColor="transparent"
       />
-      <Container>
-        <Header>
-          <WrapperContent>
-            <Title>Listagem</Title>
-            <AccountPersonally testID="count-listing">
+      <S.Container>
+        <S.Header>
+          <S.WrapperContent>
+            <S.Title>Listagem</S.Title>
+            <S.AccountPersonally testID="count-listing">
               {handleCountCharacters()}
-            </AccountPersonally>
-          </WrapperContent>
+            </S.AccountPersonally>
+          </S.WrapperContent>
 
-          <WrapperInputSearch>
+          <S.WrapperInputSearch>
             <InputSearch
               placeholder="Busque por um personagem"
               value={search}
@@ -84,10 +76,10 @@ export function Home() {
               autoCorrect={false}
               onSubmitEditing={handleSubmitFilter}
             />
-          </WrapperInputSearch>
-        </Header>
+          </S.WrapperInputSearch>
+        </S.Header>
 
-        <Main>
+        <S.Main>
           {isLoading || (isRefetching && loadSearch) ? (
             <Spinner />
           ) : (
@@ -102,8 +94,8 @@ export function Home() {
               ListFooterComponent={isFetchingNextPage ? <Spinner /> : null}
             />
           )}
-        </Main>
-      </Container>
+        </S.Main>
+      </S.Container>
     </>
   );
 }

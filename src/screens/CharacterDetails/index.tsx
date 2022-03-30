@@ -3,32 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {StatusBar, TouchableOpacity, Linking} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Spinner} from '../../components/Spinner';
-// import {useFavorites} from '../../contexts/favorites';
 import theme from '../../global/styles/theme';
 import {Navigation} from '../../routes/typesRoutes';
 import {api} from '../../services/axios';
 import {addFavoriteCharacters} from '../../store/modules/favorites/actions';
 import {State} from '../../store/rootReducer';
-import {
-  Container,
-  Header,
-  ImageCharacter,
-  CharacterPhoto,
-  ArrowBack,
-  CircleIconBack,
-  Heart,
-  ContentInfo,
-  HeaderSection,
-  NameCharacter,
-  AboutSection,
-  LocationSection,
-  Info,
-  Title,
-  WrapperInfo,
-  Status,
-  ButtonSearchGoogle,
-  ButtonSearchGoogleText,
-} from './styles';
+import * as S from './styles';
 
 type Character = {
   id: number;
@@ -52,7 +32,6 @@ export function CharacterDetails() {
   const route = useRoute();
   const navigation = useNavigation<Navigation>();
   const [character, setCharacter] = useState<Character>();
-  // const {favorites, toggleFavorites} = useFavorites();
 
   const favorite = useSelector((state: State) => state.favorites);
   const dispatch = useDispatch();
@@ -83,31 +62,31 @@ export function CharacterDetails() {
         translucent
         backgroundColor="transparent"
       />
-      <Container>
+      <S.Container>
         {!character ? (
           <Spinner />
         ) : (
           <>
-            <Header>
-              <ImageCharacter>
-                <CharacterPhoto
+            <S.Header>
+              <S.ImageCharacter>
+                <S.CharacterPhoto
                   source={{
                     uri: character.image,
                   }}
                 />
 
-                <CircleIconBack onPress={() => navigation.goBack()}>
-                  <ArrowBack name="arrowleft" size={21} color="#ffffff" />
-                </CircleIconBack>
-              </ImageCharacter>
-            </Header>
+                <S.CircleIconBack onPress={() => navigation.goBack()}>
+                  <S.ArrowBack name="arrowleft" size={21} color="#ffffff" />
+                </S.CircleIconBack>
+              </S.ImageCharacter>
+            </S.Header>
 
-            <ContentInfo>
-              <HeaderSection>
-                <NameCharacter>{character?.name}</NameCharacter>
+            <S.ContentInfo>
+              <S.HeaderSection>
+                <S.NameCharacter>{character?.name}</S.NameCharacter>
                 <TouchableOpacity
                   onPress={() => dispatch(addFavoriteCharacters(character.id))}>
-                  <Heart
+                  <S.Heart
                     name={
                       favorite.characters.includes(character.id)
                         ? 'heart'
@@ -117,51 +96,53 @@ export function CharacterDetails() {
                     color={theme.colors.primary}
                   />
                 </TouchableOpacity>
-              </HeaderSection>
+              </S.HeaderSection>
 
-              <AboutSection>
-                <WrapperInfo>
-                  <Title>Species:</Title>
-                  <Info>{character?.species}</Info>
-                </WrapperInfo>
+              <S.AboutSection>
+                <S.WrapperInfo>
+                  <S.Title>Species:</S.Title>
+                  <S.Info>{character?.species}</S.Info>
+                </S.WrapperInfo>
 
-                <WrapperInfo>
-                  <Title>Gender:</Title>
-                  <Info>{character?.gender}</Info>
-                </WrapperInfo>
-              </AboutSection>
+                <S.WrapperInfo>
+                  <S.Title>Gender:</S.Title>
+                  <S.Info>{character?.gender}</S.Info>
+                </S.WrapperInfo>
+              </S.AboutSection>
 
-              <LocationSection>
-                <Title>Location</Title>
-                <Info>Earth (Replacement Dimension)</Info>
-              </LocationSection>
+              <S.LocationSection>
+                <S.Title>Location</S.Title>
+                <S.Info>Earth (Replacement Dimension)</S.Info>
+              </S.LocationSection>
 
-              <AboutSection>
-                <WrapperInfo>
-                  <Title>Origin:</Title>
-                  <Info>{character?.origin.name}</Info>
-                </WrapperInfo>
+              <S.AboutSection>
+                <S.WrapperInfo>
+                  <S.Title>Origin:</S.Title>
+                  <S.Info>{character?.origin.name}</S.Info>
+                </S.WrapperInfo>
 
-                <WrapperInfo>
-                  <Title>Status:</Title>
-                  <Status status={character?.statusFormatted}>
+                <S.WrapperInfo>
+                  <S.Title>Status:</S.Title>
+                  <S.Status status={character?.statusFormatted}>
                     {character?.status}
-                  </Status>
-                </WrapperInfo>
-              </AboutSection>
-            </ContentInfo>
+                  </S.Status>
+                </S.WrapperInfo>
+              </S.AboutSection>
+            </S.ContentInfo>
 
-            <ButtonSearchGoogle
+            <S.ButtonSearchGoogle
               onPress={() =>
                 Linking.openURL(
                   `https://www.google.com.br/search?q=Rick and Morty ${character?.name}`,
                 )
               }>
-              <ButtonSearchGoogleText>Buscar no Google</ButtonSearchGoogleText>
-            </ButtonSearchGoogle>
+              <S.ButtonSearchGoogleText>
+                Buscar no Google
+              </S.ButtonSearchGoogleText>
+            </S.ButtonSearchGoogle>
           </>
         )}
-      </Container>
+      </S.Container>
     </>
   );
 }
