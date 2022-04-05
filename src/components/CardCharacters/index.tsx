@@ -1,92 +1,64 @@
 import React from 'react';
-import {
-  Container,
-  ImageCharacter,
-  CharacterPhoto,
-  ContentCharacter,
-  NameCharacter,
-  Title,
-  Specie,
-  Origin,
-  ButtonFavorite,
-} from './styles';
-import Icon from 'react-native-vector-icons/AntDesign';
+import * as S from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import theme from '../../global/styles/theme';
 import {TouchableWithoutFeedback} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Navigation} from '../../routes/typesRoutes';
-// import {useFavorites} from '../../contexts/favorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../store/rootReducer';
 import {addFavoriteCharacters} from '../../store/modules/favorites/actions';
-
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-  species: string;
-  origin: {
-    name: string;
-  };
-};
-
-type Props = {
-  character: Character;
-};
+import {Props} from './types';
 
 export function CardCharacters({character}: Props) {
   const navigation = useNavigation<Navigation>();
-  // const {favorites, toggleFavorites} = useFavorites();
 
   const favorites = useSelector((state: State) => state.favorites);
   const dispatch = useDispatch();
-
-  const formattedSizeName = (name: string) => name.slice(0, 17).concat('...');
 
   return (
     <TouchableWithoutFeedback
       onPress={() =>
         navigation.navigate('CharacterDetails', {id: character.id})
       }>
-      <Container>
-        <ImageCharacter>
-          <CharacterPhoto
+      <S.Container>
+        <S.ImageCharacter>
+          <S.CharacterPhoto
             source={{
               uri: character.image,
             }}
           />
-        </ImageCharacter>
-        <ContentCharacter>
-          <NameCharacter testID="name-character">
-            {character.name.length > 22
-              ? formattedSizeName(character.name)
-              : character.name}
-          </NameCharacter>
+        </S.ImageCharacter>
+        <S.ContentCharacter>
+          <S.ContentCharacterInfo>
+            <S.NameCharacter numberOfLines={1} testID="name-character">
+              {character.name}
+            </S.NameCharacter>
 
-          <Title>Species:</Title>
-          <Specie>{character.species}</Specie>
+            <S.Title>Species:</S.Title>
+            <S.Specie>{character.species}</S.Specie>
 
-          <Title>Origin:</Title>
-          <Origin>
-            {character.origin.name.length > 24
-              ? formattedSizeName(character.origin.name)
-              : character.origin.name}
-          </Origin>
-
-          <ButtonFavorite
-            testID="favorite-button"
-            onPress={() => dispatch(addFavoriteCharacters(character.id))}>
-            <Icon
-              testID="favorite-button-icon"
-              name={
-                favorites.characters.includes(character.id) ? 'heart' : 'hearto'
-              }
-              size={24}
-              color={theme.colors.primary}
-            />
-          </ButtonFavorite>
-        </ContentCharacter>
-      </Container>
+            <S.Title>Origin:</S.Title>
+            <S.Origin numberOfLines={1}>{character.origin.name}</S.Origin>
+          </S.ContentCharacterInfo>
+          <S.WrapperButtonFavorites>
+            <S.ButtonFavorite
+              testID="favorite-button"
+              onPress={() => dispatch(addFavoriteCharacters(character.id))}>
+              <Icon
+                testID="favorite-button-icon"
+                name={
+                  favorites.characters.includes(character.id)
+                    ? 'heart'
+                    : 'heart-o'
+                }
+                size={24}
+                color={theme.colors.primary}
+              />
+            </S.ButtonFavorite>
+          </S.WrapperButtonFavorites>
+        </S.ContentCharacter>
+      </S.Container>
     </TouchableWithoutFeedback>
   );
 }
