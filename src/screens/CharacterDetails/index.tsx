@@ -5,26 +5,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Spinner} from '../../components/Spinner';
 import theme from '../../global/styles/theme';
 import {Navigation} from '../../routes/typesRoutes';
-import {api} from '../../services/axios';
+import {getAEspecifyCharacter} from '../../services/getAEspecifyCharacter';
 import {addFavoriteCharacters} from '../../store/modules/favorites/actions';
 import {State} from '../../store/rootReducer';
 import * as S from './styles';
-
-type Character = {
-  id: number;
-  name: string;
-  status: string;
-  statusFormatted: 'alive' | 'dead' | 'unknown';
-  image: string;
-  species: string;
-  gender: string;
-  origin: {
-    name: string;
-  };
-  location: {
-    name: string;
-  };
-};
+import {Character} from './types';
 
 type Params = {id: number};
 
@@ -45,10 +30,10 @@ export function CharacterDetails() {
     const {id} = route.params as Params;
 
     try {
-      const response = await api.get(`/character/${id}`);
+      const data = await getAEspecifyCharacter(id);
       setCharacter({
-        ...response.data,
-        statusFormatted: response.data.status.toLowerCase(),
+        ...data,
+        statusFormatted: data.status.toLowerCase(),
       });
     } catch (err) {
       console.log(err);
@@ -112,13 +97,13 @@ export function CharacterDetails() {
 
               <S.LocationSection>
                 <S.Title>Location</S.Title>
-                <S.Info>Earth (Replacement Dimension)</S.Info>
+                <S.Info>{character.location.name}</S.Info>
               </S.LocationSection>
 
               <S.AboutSection>
                 <S.WrapperInfo>
                   <S.Title>Origin:</S.Title>
-                  <S.Info>{character?.origin.name}</S.Info>
+                  <S.Info numberOfLines={2}>{character?.origin.name}</S.Info>
                 </S.WrapperInfo>
 
                 <S.WrapperInfo>
@@ -129,17 +114,18 @@ export function CharacterDetails() {
                 </S.WrapperInfo>
               </S.AboutSection>
             </S.ContentInfo>
-
-            <S.ButtonSearchGoogle
-              onPress={() =>
-                Linking.openURL(
-                  `https://www.google.com.br/search?q=Rick and Morty ${character?.name}`,
-                )
-              }>
-              <S.ButtonSearchGoogleText>
-                Buscar no Google
-              </S.ButtonSearchGoogleText>
-            </S.ButtonSearchGoogle>
+            <S.Footer>
+              <S.ButtonSearchGoogle
+                onPress={() =>
+                  Linking.openURL(
+                    `https://www.google.com.br/search?q=Rick and Morty ${character?.name}`,
+                  )
+                }>
+                <S.ButtonSearchGoogleText>
+                  Buscar no Google
+                </S.ButtonSearchGoogleText>
+              </S.ButtonSearchGoogle>
+            </S.Footer>
           </>
         )}
       </S.Container>
