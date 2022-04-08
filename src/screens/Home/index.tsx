@@ -35,14 +35,14 @@ export function Home() {
 
   const characters = data?.pages.map(page => page.results).flat();
 
-  const countCurrentCharacters = data?.pages.reduce(
+  const countCurrentCharacters = data?.pages.reduce<number>(
     (acc, page) => (acc += page.results.length),
     0,
   );
 
   const handleCountCharacters = () => {
     if (!countCurrentCharacters) {
-      return '0 personagem';
+      return 'Nenhum personagem';
     }
 
     if (countCurrentCharacters > 1) {
