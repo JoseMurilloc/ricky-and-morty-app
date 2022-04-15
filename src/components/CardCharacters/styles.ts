@@ -8,6 +8,7 @@ export const Container = styled.View`
   margin-bottom: 15px;
   border-radius: 6px;
 `;
+
 export const ImageCharacter = styled.View`
   height: 100%;
   width: 150px;
@@ -23,7 +24,18 @@ export const CharacterPhoto = styled.Image`
 export const ContentCharacter = styled.View`
   position: relative;
   flex: 1;
-  padding: 10px 0 10px 10px;
+  padding: 10px;
+
+  flex-direction: row;
+`;
+
+export const ContentCharacterInfo = styled.View`
+  flex: 1;
+`;
+
+export const WrapperButtonFavorites = styled.View`
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 export const NameCharacter = styled.Text`
@@ -56,9 +68,4 @@ export const Origin = styled.Text`
   color: ${props => props.theme.colors.text.information};
 `;
 
-export const ButtonFavorite = styled.TouchableOpacity`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 200;
-`;
+export const ButtonFavorite = styled.TouchableOpacity``;
